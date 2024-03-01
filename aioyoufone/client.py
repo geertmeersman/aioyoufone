@@ -168,7 +168,7 @@ class YoufoneClient:
         try:
             self.customer = await self.login()
             self.customer_id = self.customer.get("customerId")
-            for card in self.get_available_cards():
+            for card in await self.get_available_cards():
                 print(f"Card: {card}")
 
         except Exception as e:
