@@ -1,18 +1,17 @@
-"""Youfone API Client Module.
-
-This module provides a class to communicate with the Youfone API.
-
-"""
+import logging
 
 import httpx
 
 from .const import API_BASE_URL, API_HEADERS, COUNTRY_CHOICES, DEFAULT_COUNTRY
 
+# Setup logging
+logger = logging.getLogger(__name__)
+
 
 class YoufoneClient:
     """Class to communicate with the Youfone API."""
 
-    def __init__(self, email, password, country, custom_headers=None):
+    def __init__(self, email, password, country, custom_headers=None, debug=False):
         """Initialize the API to get data.
 
         Args:
@@ -21,6 +20,7 @@ class YoufoneClient:
             password (str): The password associated with the Youfone account.
             country (str): The country code for the Youfone account.
             custom_headers (dict, optional): Custom headers for HTTP requests. Defaults to None.
+            debug (bool, optional): Whether to enable debug mode. Defaults to False.
 
         """
         self.email = email
@@ -30,6 +30,7 @@ class YoufoneClient:
         self.customer = None
         self.customer_id = None
         self.custom_headers = custom_headers or {}
+        self.debug = debug  # Set debug mode
         if country not in COUNTRY_CHOICES:
             self.country = DEFAULT_COUNTRY
         else:
@@ -100,6 +101,14 @@ class YoufoneClient:
                 response = await self.client.post(
                     endpoint_path, json=data, headers=headers
                 )
+            if self.debug:  # Check if debug mode is active
+                logger.debug(
+                    f"HTTP {method} {endpoint_path} - Status: {response.status_code}"
+                )
+                logger.debug(f"Request Headers: {headers}")
+                logger.debug(f"Response Headers: {response.headers}")
+                logger.debug(f"Response Content: {response.content}")
+
             if response.status_code == expected_status:
                 if return_json:
                     return response.json()

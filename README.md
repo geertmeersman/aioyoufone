@@ -30,11 +30,17 @@ import json
 import asyncio
 import logging
 
+# Setup logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
 async def main():
     client = YoufoneClient(
         "user@email.com",
         "YourPassword",
-        "nl"
+        "nl",
+        None,
+        True
     )
 
     try:
