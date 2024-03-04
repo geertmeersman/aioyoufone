@@ -29,6 +29,7 @@ class YoufoneClient:
         self.client = None
         self.customer = None
         self.customer_id = None
+        self.security_key = None  # Store the security key
         self.custom_headers = custom_headers or {}
         self.debug = debug  # Set debug mode
         if country not in COUNTRY_CHOICES:
@@ -93,6 +94,11 @@ class YoufoneClient:
 
         endpoint_path = f"{self.base_api_endpoint}/{path}"
         headers = {**API_HEADERS, **self.custom_headers}
+
+        # Add security key to headers if available
+        if self.security_key:
+            headers["securitykey"] = self.security_key
+
         response = None
         try:
             if method.lower() == "get":
@@ -110,6 +116,10 @@ class YoufoneClient:
                 logger.debug(f"Response Content: {response.content}")
 
             if response.status_code == expected_status:
+                # Update security key if present in response headers
+                if "securitykey" in response.headers:
+                    self.security_key = response.headers["securitykey"]
+
                 if return_json:
                     return response.json()
                 else:
