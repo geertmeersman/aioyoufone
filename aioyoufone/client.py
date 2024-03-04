@@ -128,7 +128,7 @@ class YoufoneClient:
                 if return_json:
                     return response.json()
                 else:
-                    return None
+                    return response.text()
             else:
                 raise Exception(
                     f"Request to {endpoint_path} failed with status code {response.status_code}"
