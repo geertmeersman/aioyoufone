@@ -180,6 +180,29 @@ class YoufoneClient:
             return json
         return False
 
+    async def get_sim_only(self, data):
+        """Retrieve SIM-only options from the Youfone API.
+
+        Args:
+        ----
+            data (dict): The payload to be passed to the GetSimOnly endpoint.
+
+        Returns:
+        -------
+            dict or None: A dictionary containing SIM-only information or None if the request fails.
+
+        """
+        for expected_status in [200]:
+            json = await self.request(
+                "POST",
+                "Card/GetSimOnly",
+                data,
+                return_json=True,
+                expected_status=expected_status,
+            )
+            return json
+        return None
+
     async def get_data(self):
         """Get the customer data from the Youfone API.
 
@@ -192,8 +215,16 @@ class YoufoneClient:
         try:
             self.customer = await self.login()
             self.customer_id = self.customer.get("customerId")
+            sims = []
             for card in await self.get_available_cards():
                 print(f"Card: {card}")
+                card_type = card.get("cardType")
+                if card_type == "SIM_ONLY":
+                    for sim_only in card.get("options"):
+                        sim_info = self.get_sim_only(sim_only)
+                        if sim_only:
+                            sims.append(sim_info)
+            print(f"Sim_only: {sims}")
 
         except Exception as e:
             error_message = e.args[0] if e.args else str(e)
