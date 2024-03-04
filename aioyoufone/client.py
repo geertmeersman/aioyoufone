@@ -203,30 +203,29 @@ class YoufoneClient:
             return json
         return None
 
-    async def get_data(self):
-        """Get the customer data from the Youfone API.
 
-        Returns
-        -------
-            tuple or dict: If successful, returns a dictionary containing customer data.
-                           If there's an error, returns a tuple with an error indicator and message.
+async def get_data(self):
+    """Get the customer data from the Youfone API.
 
-        """
-        try:
-            self.customer = await self.login()
-            self.customer_id = self.customer.get("customerId")
-            sims = []
-            for card in await self.get_available_cards():
-                print(f"Card: {card}")
-                card_type = card.get("cardType")
-                if card_type == "SIM_ONLY":
-                    for sim_only in card.get("options"):
-                        sim_info = self.get_sim_only(sim_only)
-                        if sim_only:
-                            sims.append(sim_info)
-            print(f"Sim_only: {sims}")
+    Returns
+    -------
+        dict: A dictionary containing customer data or an error indicator and message.
 
-        except Exception as e:
-            error_message = e.args[0] if e.args else str(e)
-            return {"error": error_message}
-        return {"customer": self.customer}
+    """
+    try:
+        self.customer = await self.login()
+        self.customer_id = self.customer.get("customerId")
+        sims = []
+        for card in await self.get_available_cards():
+            print(f"Card: {card}")
+            card_type = card.get("cardType")
+            if card_type == "SIM_ONLY":
+                for sim_only in card.get("options"):
+                    sim_info = await self.get_sim_only(sim_only)
+                    if sim_info:
+                        sims.append(sim_info)
+
+    except Exception as e:
+        error_message = e.args[0] if e.args else str(e)
+        return {"error": error_message}
+    return {"customer": self.customer, "sim_info": sims}
