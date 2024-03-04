@@ -1,3 +1,8 @@
+"""Youfone API Client Module.
+
+This module provides a class to communicate with the Youfone API.
+
+"""
 import logging
 
 import httpx
