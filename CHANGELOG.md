@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.2.2](https://github.com/geertmeersman/aioyoufone/tree/v0.2.2) (2024-03-05)
+
+[Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.2.1...v0.2.2)
+
+**Merged pull requests:**
+
+- refactor: voice & data usage in dict [\#4](https://github.com/geertmeersman/aioyoufone/pull/4) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.2.1](https://github.com/geertmeersman/aioyoufone/tree/v0.2.1) (2024-03-05)
 
 [Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.2.0...v0.2.1)
