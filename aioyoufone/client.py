@@ -221,7 +221,7 @@ class YoufoneClient:
                     for sim_only in card.get("options"):
                         sim_info = await self.get_sim_only(sim_only)
                         if sim_info:
-                            sims.append(sim_info)
+                            sims.append({"options": sim_only, "info": sim_info})
 
         except Exception as e:
             error_message = e.args[0] if e.args else str(e)
