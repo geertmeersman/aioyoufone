@@ -280,7 +280,7 @@ class YoufoneClient:
                 s1 += c
         return s1
 
-    async def get_data(self):
+    async def fetch_data(self):
         """Get the customer data from the Youfone API.
 
         Returns
