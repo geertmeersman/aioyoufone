@@ -43,7 +43,7 @@ async def main():
     )
 
     try:
-        customer_data = await client.get_data()
+        customer_data = await client.fetch_data()
         if isinstance(customer_data, dict) and 'error' in customer_data:
             logging.error("Error occurred while retrieving customer data: %s", customer_data['error'])
         else:
