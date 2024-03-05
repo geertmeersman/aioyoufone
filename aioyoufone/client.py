@@ -241,7 +241,7 @@ class YoufoneClient:
             list: A list of dictionaries, each containing information about a usage progress bar.
 
         """
-        transformed_data = []
+        transformed_data = {}
         # Iterate over each progress bar
         for progress_bar in json_data.get("progressBars", []):
             transformed_bar = {
@@ -257,7 +257,7 @@ class YoufoneClient:
             transformed_bar = {
                 self.convert_camel_to_snake(k): v for k, v in transformed_bar.items()
             }
-            transformed_data.append(transformed_bar)
+            transformed_data[transformed_bar.get("type").lower()] = transformed_bar
         return transformed_data
 
     def convert_camel_to_snake(self, name):
