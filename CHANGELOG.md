@@ -1,5 +1,18 @@
 # Changelog
 
+## [v0.2.1](https://github.com/geertmeersman/aioyoufone/tree/v0.2.1) (2024-03-05)
+
+[Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.2.0...v0.2.1)
+
+## [v0.2.0](https://github.com/geertmeersman/aioyoufone/tree/v0.2.0) (2024-03-05)
+
+[Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.1.0...v0.2.0)
+
+**Merged pull requests:**
+
+- refactor: align fetch data with old client [\#3](https://github.com/geertmeersman/aioyoufone/pull/3) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.2.1 to 0.3.0 [\#2](https://github.com/geertmeersman/aioyoufone/pull/2) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.1.0](https://github.com/geertmeersman/aioyoufone/tree/v0.1.0) (2024-03-05)
 
 [Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/8a35693b5cba091d3211d455dc3f0aa7869ae0a5...v0.1.0)
