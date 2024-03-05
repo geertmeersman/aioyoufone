@@ -202,6 +202,29 @@ class YoufoneClient:
             return json
         return None
 
+    async def get_abonnement(self, data):
+        """Retrieve SIM-only abonnement information from the Youfone API.
+
+        Args:
+        ----
+            data (dict): The payload to be passed to the GetAbonnement endpoint.
+
+        Returns:
+        -------
+            dict or None: A dictionary containing SIM-only abonnement information or None if the request fails.
+
+        """
+        for expected_status in [200]:
+            json = await self.request(
+                "POST",
+                "Products/SimOnly/GetAbonnement",
+                data,
+                return_json=True,
+                expected_status=expected_status,
+            )
+            return json
+        return None
+
     async def get_data(self):
         """Get the customer data from the Youfone API.
 
@@ -221,7 +244,15 @@ class YoufoneClient:
                     for sim_only in card.get("options"):
                         sim_info = await self.get_sim_only(sim_only)
                         if sim_info:
-                            sims.append({"options": sim_only, "info": sim_info})
+                            abonnement_info = await self.get_abonnement(sim_only)
+                            if abonnement_info:
+                                sims.append(
+                                    {
+                                        "options": sim_only,
+                                        "usage": sim_info,
+                                        "abonnement_info": abonnement_info,
+                                    }
+                                )
 
         except Exception as e:
             error_message = e.args[0] if e.args else str(e)
