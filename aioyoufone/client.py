@@ -248,7 +248,6 @@ class YoufoneClient:
                 "is_unlimited": progress_bar.get("isUnlimited"),
                 "current": progress_bar.get("leftSideData"),
                 "max": progress_bar.get("rightSideData"),
-                "order": progress_bar.get("order"),
                 "percentage": progress_bar.get("percentage"),
                 "remaining_days": json_data.get("remainingDays"),
                 "type": progress_bar.get("type"),
