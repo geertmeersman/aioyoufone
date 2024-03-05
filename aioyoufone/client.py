@@ -9,8 +9,7 @@ import httpx
 
 from .const import API_BASE_URL, API_HEADERS, COUNTRY_CHOICES, DEFAULT_COUNTRY
 
-# Setup logging
-logger = logging.getLogger(__name__)
+_LOGGER = logging.getLogger(__name__)
 
 
 class YoufoneClient:
@@ -113,12 +112,12 @@ class YoufoneClient:
                     endpoint_path, json=data, headers=headers
                 )
             if self.debug:  # Check if debug mode is active
-                logger.debug(
+                _LOGGER.debug(
                     f"HTTP {method} {endpoint_path} - Status: {response.status_code}"
                 )
-                logger.debug(f"Request Headers: {headers}")
-                logger.debug(f"Response Headers: {response.headers}")
-                logger.debug(f"Response Content: {response.content}")
+                _LOGGER.debug(f"Request Headers: {headers}")
+                _LOGGER.debug(f"Response Headers: {response.headers}")
+                _LOGGER.debug(f"Response Content: {response.content}")
 
             if response.status_code == expected_status:
                 # Update security key if present in response headers
@@ -203,29 +202,28 @@ class YoufoneClient:
             return json
         return None
 
+    async def get_data(self):
+        """Get the customer data from the Youfone API.
 
-async def get_data(self):
-    """Get the customer data from the Youfone API.
+        Returns
+        -------
+            dict: A dictionary containing customer data or an error indicator and message.
 
-    Returns
-    -------
-        dict: A dictionary containing customer data or an error indicator and message.
+        """
+        try:
+            self.customer = await self.login()
+            self.customer_id = self.customer.get("customerId")
+            sims = []
+            for card in await self.get_available_cards():
+                print(f"Card: {card}")
+                card_type = card.get("cardType")
+                if card_type == "SIM_ONLY":
+                    for sim_only in card.get("options"):
+                        sim_info = await self.get_sim_only(sim_only)
+                        if sim_info:
+                            sims.append(sim_info)
 
-    """
-    try:
-        self.customer = await self.login()
-        self.customer_id = self.customer.get("customerId")
-        sims = []
-        for card in await self.get_available_cards():
-            print(f"Card: {card}")
-            card_type = card.get("cardType")
-            if card_type == "SIM_ONLY":
-                for sim_only in card.get("options"):
-                    sim_info = await self.get_sim_only(sim_only)
-                    if sim_info:
-                        sims.append(sim_info)
-
-    except Exception as e:
-        error_message = e.args[0] if e.args else str(e)
-        return {"error": error_message}
-    return {"customer": self.customer, "sim_info": sims}
+        except Exception as e:
+            error_message = e.args[0] if e.args else str(e)
+            return {"error": error_message}
+        return {"customer": self.customer, "sim_info": sims}
