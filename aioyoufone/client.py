@@ -3,6 +3,7 @@
 This module provides a class to communicate with the Youfone API.
 
 """
+
 import logging
 
 import httpx
@@ -225,6 +226,61 @@ class YoufoneClient:
             return json
         return None
 
+    def transform_sim_only_usage(self, json_data):
+        """Transform the given JSON data representing SIM-only usage into a specific format.
+
+        This function takes a JSON object representing SIM-only usage and transforms it into a list of dictionaries
+        containing information about usage progress bars associated with the SIM-only plan.
+
+        Args:
+        ----
+            json_data (dict): The JSON object representing the SIM-only usage.
+
+        Returns:
+        -------
+            list: A list of dictionaries, each containing information about a usage progress bar.
+
+        """
+        transformed_data = []
+        # Iterate over each progress bar
+        for progress_bar in json_data.get("progressBars", []):
+            transformed_bar = {
+                "is_unlimited": progress_bar.get("isUnlimited"),
+                "current": progress_bar.get("leftSideData"),
+                "max": progress_bar.get("rightSideData"),
+                "order": progress_bar.get("order"),
+                "percentage": progress_bar.get("percentage"),
+                "remaining_days": json_data.get("remainingDays"),
+                "type": progress_bar.get("type"),
+                "units": progress_bar.get("units"),
+            }
+            # Convert camelCase keys to snake_case
+            transformed_bar = {
+                self.convert_camel_to_snake(k): v for k, v in transformed_bar.items()
+            }
+            transformed_data.append(transformed_bar)
+        return transformed_data
+
+    def convert_camel_to_snake(self, name):
+        """Convert a camelCase string to snake_case.
+
+        Args:
+        ----
+            name (str): The camelCase string to convert.
+
+        Returns:
+        -------
+            str: The snake_case representation of the input string.
+
+        """
+        s1 = name[0].lower()
+        for c in name[1:]:
+            if c.isupper():
+                s1 += "_" + c.lower()
+            else:
+                s1 += c
+        return s1
+
     async def get_data(self):
         """Get the customer data from the Youfone API.
 
@@ -234,27 +290,37 @@ class YoufoneClient:
 
         """
         try:
-            self.customer = await self.login()
-            self.customer_id = self.customer.get("customerId")
-            sims = []
-            for card in await self.get_available_cards():
-                print(f"Card: {card}")
-                card_type = card.get("cardType")
-                if card_type == "SIM_ONLY":
-                    for sim_only in card.get("options"):
-                        sim_info = await self.get_sim_only(sim_only)
-                        if sim_info:
-                            abonnement_info = await self.get_abonnement(sim_only)
-                            if abonnement_info:
-                                sims.append(
-                                    {
-                                        "options": sim_only,
-                                        "usage": sim_info,
-                                        "abonnement_info": abonnement_info,
-                                    }
-                                )
+            self.customer = {
+                self.convert_camel_to_snake(k): v
+                for k, v in (await self.login()).items()
+            }
+            self.customer_id = self.customer.get("customer_id")
+            sim_only = []
+            if self.customer.get("has_simonly"):
+                for card in await self.get_available_cards():
+                    card_type = card.get("cardType")
+                    if card_type == "SIM_ONLY":
+                        for options in card.get("options"):
+                            usage = await self.get_sim_only(options)
+                            if usage:
+                                subscription_info = await self.get_abonnement(options)
+                                if subscription_info:
+                                    sim_only.append(
+                                        {
+                                            "msisdn": options.get("msisdn", ""),
+                                            "usage": self.transform_sim_only_usage(
+                                                usage
+                                            ),
+                                            "subscription_info": {
+                                                self.convert_camel_to_snake(k): v
+                                                for k, v in subscription_info.get(
+                                                    "generalInfo", ""
+                                                ).items()
+                                            },
+                                        }
+                                    )
 
         except Exception as e:
             error_message = e.args[0] if e.args else str(e)
             return {"error": error_message}
-        return {"customer": self.customer, "sim_info": sims}
+        return {"customer": self.customer, "sim_only": sim_only}

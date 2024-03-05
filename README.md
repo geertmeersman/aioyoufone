@@ -31,7 +31,6 @@ import asyncio
 import logging
 
 # Setup logging
-logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 async def main():
