@@ -247,7 +247,7 @@ class YoufoneClient:
         for progress_bar in json_data.get("progressBars", []):
             remaining_days = json_data.get("remainingDays")
             period_percentage = self.percentage_elapsed(remaining_days)
-            percentage = progress_bar.get("percentage")
+            percentage = progress_bar.get("percentage", 0)
             transformed_bar = {
                 "is_unlimited": progress_bar.get("isUnlimited"),
                 "current": progress_bar.get("leftSideData"),
