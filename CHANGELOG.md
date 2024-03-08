@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.1](https://github.com/geertmeersman/aioyoufone/tree/v0.3.1) (2024-03-08)
+
+[Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.3.0...v0.3.1)
+
+**Merged pull requests:**
+
+- fix: set percentage to 0 if not found [\#6](https://github.com/geertmeersman/aioyoufone/pull/6) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.3.0](https://github.com/geertmeersman/aioyoufone/tree/v0.3.0) (2024-03-08)
 
 [Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.2.2...v0.3.0)
