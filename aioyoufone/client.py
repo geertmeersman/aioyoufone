@@ -4,6 +4,7 @@ This module provides a class to communicate with the Youfone API.
 
 """
 
+from datetime import datetime, timedelta
 import logging
 
 import httpx
@@ -244,12 +245,17 @@ class YoufoneClient:
         transformed_data = {}
         # Iterate over each progress bar
         for progress_bar in json_data.get("progressBars", []):
+            remaining_days = json_data.get("remainingDays")
+            period_percentage = self.percentage_elapsed(remaining_days)
+            percentage = progress_bar.get("percentage")
             transformed_bar = {
                 "is_unlimited": progress_bar.get("isUnlimited"),
                 "current": progress_bar.get("leftSideData"),
                 "max": progress_bar.get("rightSideData"),
-                "percentage": progress_bar.get("percentage"),
-                "remaining_days": json_data.get("remainingDays"),
+                "percentage": percentage,
+                "remaining_days": remaining_days,
+                "period_percentage": period_percentage,
+                "alert": period_percentage < percentage,
                 "type": progress_bar.get("type"),
                 "units": progress_bar.get("units"),
             }
@@ -279,6 +285,44 @@ class YoufoneClient:
             else:
                 s1 += c
         return s1
+
+    def percentage_elapsed(self, remaining_days):
+        """Calculate the percentage elapsed in the current billing period based on the remaining days.
+
+        Args:
+        ----
+            remaining_days (int): The number of remaining days in the billing period.
+
+        Returns:
+        -------
+            float: The percentage elapsed in the current billing period.
+
+        """
+        # Get the current datetime
+        current_datetime = datetime.now()
+
+        # Calculate the end datetime (today + remaining days) at midnight
+        end_datetime = datetime(
+            current_datetime.year, current_datetime.month, current_datetime.day
+        ) + timedelta(days=remaining_days)
+
+        # Calculate the start datetime (end datetime - 1 month)
+        start_datetime = end_datetime - timedelta(
+            days=30
+        )  # Assuming a month is 30 days
+
+        # Calculate the period length in seconds
+        period_length_seconds = (end_datetime - start_datetime).total_seconds()
+
+        # Calculate the elapsed time in seconds
+        elapsed_time_seconds = (current_datetime - start_datetime).total_seconds()
+
+        # Calculate the percentage elapsed in the billing period
+        percentage_elapsed = round(
+            (elapsed_time_seconds / period_length_seconds) * 100, 2
+        )
+
+        return percentage_elapsed
 
     async def fetch_data(self):
         """Get the customer data from the Youfone API.
