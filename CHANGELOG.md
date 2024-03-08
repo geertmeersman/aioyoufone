@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.3.0](https://github.com/geertmeersman/aioyoufone/tree/v0.3.0) (2024-03-08)
+
+[Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.2.2...v0.3.0)
+
+**Merged pull requests:**
+
+- feat: elapsed period % and alert [\#5](https://github.com/geertmeersman/aioyoufone/pull/5) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.2.2](https://github.com/geertmeersman/aioyoufone/tree/v0.2.2) (2024-03-05)
 
 [Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.2.1...v0.2.2)
