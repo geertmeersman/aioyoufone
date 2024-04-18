@@ -37,7 +37,6 @@ async def main():
     client = YoufoneClient(
         "user@email.com",
         "YourPassword",
-        "nl",
         None,
         True
     )
