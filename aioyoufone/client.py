@@ -9,7 +9,7 @@ import logging
 
 import httpx
 
-from .const import API_BASE_URL, API_HEADERS, COUNTRY_CHOICES, DEFAULT_COUNTRY
+from .const import API_BASE_URL, API_HEADERS
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -17,40 +17,25 @@ _LOGGER = logging.getLogger(__name__)
 class YoufoneClient:
     """Class to communicate with the Youfone API."""
 
-    def __init__(self, email, password, country, custom_headers=None, debug=False):
+    def __init__(self, email, password, custom_headers=None, debug=False):
         """Initialize the API to get data.
 
         Args:
         ----
             email (str): The email associated with the Youfone account.
             password (str): The password associated with the Youfone account.
-            country (str): The country code for the Youfone account.
             custom_headers (dict, optional): Custom headers for HTTP requests. Defaults to None.
             debug (bool, optional): Whether to enable debug mode. Defaults to False.
 
         """
         self.email = email
         self.password = password
-        self.country = None
         self.client = None
         self.customer = None
         self.customer_id = None
         self.security_key = None  # Store the security key
         self.custom_headers = custom_headers or {}
         self.debug = debug  # Set debug mode
-        if country not in COUNTRY_CHOICES:
-            self.country = DEFAULT_COUNTRY
-        else:
-            self.country = country
-        self.base_api_endpoint = API_BASE_URL.replace(
-            f"youfone.{DEFAULT_COUNTRY}", f"youfone.{self.country}"
-        )
-
-        # Update API_HEADERS based on self.country
-        for key, value in API_HEADERS.items():
-            API_HEADERS[key] = value.replace(
-                f"youfone.{DEFAULT_COUNTRY}", f"youfone.{self.country}"
-            )
 
     async def start_session(self):
         """Start the httpx session."""
