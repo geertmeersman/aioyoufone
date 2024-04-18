@@ -83,7 +83,7 @@ class YoufoneClient:
         if self.client is None:
             await self.start_session()
 
-        endpoint_path = f"{self.base_api_endpoint}/{path}"
+        endpoint_path = f"{API_BASE_URL}/{path}"
         headers = {**API_HEADERS, **self.custom_headers}
 
         # Add security key to headers if available
