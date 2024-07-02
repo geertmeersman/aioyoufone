@@ -237,7 +237,7 @@ class YoufoneClient:
             max_value = progress_bar.get("rightSideData", 0)
             percentage = progress_bar.get("percentage", 0)
             calculated_percentage = (
-                round((current / max_value) * 100) if max_value else 0
+                round((current / max_value) * 100, 2) if max_value else 0.00
             )
             progress_bar_type = progress_bar.get("type", "").lower()
 
@@ -250,7 +250,7 @@ class YoufoneClient:
                     "calculated_percentage": calculated_percentage,
                     "remaining_days": remaining_days,
                     "period_percentage": period_percentage,
-                    "alert": period_percentage < percentage,
+                    "alert": period_percentage < calculated_percentage,
                     "type": progress_bar_type,
                     "units": progress_bar.get("units", ""),
                 }
