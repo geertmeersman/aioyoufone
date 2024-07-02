@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.4.1](https://github.com/geertmeersman/aioyoufone/tree/v0.4.1) (2024-07-02)
+
+[Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.4.0...v0.4.1)
+
+**Merged pull requests:**
+
+- fix: 2 digits percentage and alert based on calculated [\#28](https://github.com/geertmeersman/aioyoufone/pull/28) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.4.0](https://github.com/geertmeersman/aioyoufone/tree/v0.4.0) (2024-07-02)
 
 [Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.3.3...v0.4.0)
