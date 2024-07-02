@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.4.2](https://github.com/geertmeersman/aioyoufone/tree/v0.4.2) (2024-07-02)
+
+[Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.4.1...v0.4.2)
+
+**Merged pull requests:**
+
+- fix: voice/data position fix [\#29](https://github.com/geertmeersman/aioyoufone/pull/29) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.4.1](https://github.com/geertmeersman/aioyoufone/tree/v0.4.1) (2024-07-02)
 
 [Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.4.0...v0.4.1)
