@@ -1,5 +1,24 @@
 # Changelog
 
+## [v0.4.0](https://github.com/geertmeersman/aioyoufone/tree/v0.4.0) (2024-07-02)
+
+[Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.3.3...v0.4.0)
+
+**Merged pull requests:**
+
+- feat: Calculate sim usage percentage as extra attribute [\#27](https://github.com/geertmeersman/aioyoufone/pull/27) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.4.10 to 0.5.0 [\#26](https://github.com/geertmeersman/aioyoufone/pull/26) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.9 to 0.4.10 [\#25](https://github.com/geertmeersman/aioyoufone/pull/25) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.1,\>=8.0.3 to \>=8.0.3,\<24.2 [\#24](https://github.com/geertmeersman/aioyoufone/pull/24) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.8 to 0.4.9 [\#23](https://github.com/geertmeersman/aioyoufone/pull/23) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.7 to 0.4.8 [\#22](https://github.com/geertmeersman/aioyoufone/pull/22) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.5 to 0.4.7 [\#21](https://github.com/geertmeersman/aioyoufone/pull/21) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.4 to 0.4.5 [\#20](https://github.com/geertmeersman/aioyoufone/pull/20) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.3 to 0.4.4 [\#19](https://github.com/geertmeersman/aioyoufone/pull/19) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.2 to 0.4.3 [\#18](https://github.com/geertmeersman/aioyoufone/pull/18) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.1 to 0.4.2 [\#17](https://github.com/geertmeersman/aioyoufone/pull/17) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.3.7 to 0.4.1 [\#16](https://github.com/geertmeersman/aioyoufone/pull/16) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.3.3](https://github.com/geertmeersman/aioyoufone/tree/v0.3.3) (2024-04-18)
 
 [Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.3.2...v0.3.3)
