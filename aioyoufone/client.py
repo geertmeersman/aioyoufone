@@ -227,28 +227,40 @@ class YoufoneClient:
             list: A list of dictionaries, each containing information about a usage progress bar.
 
         """
-        transformed_data = {}
+        transformed_data = []
+
         # Iterate over each progress bar
         for progress_bar in json_data.get("progressBars", []):
-            remaining_days = json_data.get("remainingDays")
+            remaining_days = json_data.get("remainingDays", 0)
             period_percentage = self.percentage_elapsed(remaining_days)
+            current = progress_bar.get("leftSideData", 0)
+            max_value = progress_bar.get("rightSideData", 0)
             percentage = progress_bar.get("percentage", 0)
-            transformed_bar = {
-                "is_unlimited": progress_bar.get("isUnlimited"),
-                "current": progress_bar.get("leftSideData"),
-                "max": progress_bar.get("rightSideData"),
-                "percentage": percentage,
-                "remaining_days": remaining_days,
-                "period_percentage": period_percentage,
-                "alert": period_percentage < percentage,
-                "type": progress_bar.get("type"),
-                "units": progress_bar.get("units"),
-            }
-            # Convert camelCase keys to snake_case
-            transformed_bar = {
-                self.convert_camel_to_snake(k): v for k, v in transformed_bar.items()
-            }
-            transformed_data[transformed_bar.get("type").lower()] = transformed_bar
+            calculated_percentage = (
+                round((current / max_value) * 100) if max_value else 0
+            )
+            progress_bar_type = progress_bar.get("type", "").lower()
+
+            if progress_bar_type:
+                transformed_bar = {
+                    "is_unlimited": progress_bar.get("isUnlimited", False),
+                    "current": current,
+                    "max": max_value,
+                    "percentage": percentage,
+                    "calculated_percentage": calculated_percentage,
+                    "remaining_days": remaining_days,
+                    "period_percentage": period_percentage,
+                    "alert": period_percentage < percentage,
+                    "type": progress_bar_type,
+                    "units": progress_bar.get("units", ""),
+                }
+                # Convert camelCase keys to snake_case
+                transformed_bar = {
+                    self.convert_camel_to_snake(k): v
+                    for k, v in transformed_bar.items()
+                }
+                transformed_data.append(transformed_bar)
+
         return transformed_data
 
     def convert_camel_to_snake(self, name):
