@@ -41,7 +41,10 @@ class YoufoneClient:
         """Start the httpx session."""
         if self.client is None:
             self.client = httpx.AsyncClient(
-                headers=self.custom_headers, http2=True, verify=False
+                headers=self.custom_headers,
+                http2=True,
+                verify=False,
+                timeout=httpx.Timeout(20.0, read=10.0),
             )
 
     async def close_session(self):
