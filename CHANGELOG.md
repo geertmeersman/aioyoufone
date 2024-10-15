@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.4.3](https://github.com/geertmeersman/aioyoufone/tree/v0.4.3) (2024-10-15)
+
+[Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.4.2...v0.4.3)
+
+**Merged pull requests:**
+
+- fix: disable ssl certificate validation [\#45](https://github.com/geertmeersman/aioyoufone/pull/45) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.6.8 to 0.6.9 [\#44](https://github.com/geertmeersman/aioyoufone/pull/44) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.7 to 0.6.8 [\#43](https://github.com/geertmeersman/aioyoufone/pull/43) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.5 to 0.6.7 [\#42](https://github.com/geertmeersman/aioyoufone/pull/42) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.4 to 0.6.5 [\#41](https://github.com/geertmeersman/aioyoufone/pull/41) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.2 to 0.6.4 [\#40](https://github.com/geertmeersman/aioyoufone/pull/40) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.5.1 to 0.6.2 [\#38](https://github.com/geertmeersman/aioyoufone/pull/38) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.2,\>=8.0.3 to \>=8.0.3,\<24.3 [\#33](https://github.com/geertmeersman/aioyoufone/pull/33) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.5.0 to 0.5.1 [\#30](https://github.com/geertmeersman/aioyoufone/pull/30) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.4.2](https://github.com/geertmeersman/aioyoufone/tree/v0.4.2) (2024-07-02)
 
 [Full Changelog](https://github.com/geertmeersman/aioyoufone/compare/v0.4.1...v0.4.2)
